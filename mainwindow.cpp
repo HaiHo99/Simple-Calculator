@@ -146,7 +146,11 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent) {
     setLayout(mainLayout);
 }
 void MainWindow::digitClicked() {
-
+QPushButton *clickedButton = qobject_cast<QPushButton *>(sender());
+        int digitValue = clickedButton->text().toInt();
+        if (display->text() == "0" && digitValue == 0.0)
+            return;
+        display->setText(display->text() + QString::number(digitValue));
 }
 void MainWindow::operatorClicked() {
 
@@ -158,8 +162,13 @@ void MainWindow::dotClicked() {
 
 }
 void MainWindow::backspaceClicked() {
-
+QString text = display->text();
+        text.chop(1);
+        if (text.isEmpty()) {
+            text = "0";
+        }
+        display->setText(text);
 }
 void MainWindow::clearClicked() {
-
+display->setText("");
 }
